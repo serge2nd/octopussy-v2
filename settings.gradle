@@ -1,0 +1,2 @@
+rootProject.name = 'octopussy-v2'
+include 'octopussy-v2-core'

@@ -1,0 +1,11 @@
+apply plugin: JavaPlugin
+
+dependencies {
+    api "ru.serge2nd:bunch-of-crafts:${bunch_of_crafts.version}"
+    api 'io.projectreactor:reactor-core'
+    api 'io.r2dbc:r2dbc-spi'
+    api 'jakarta.persistence:jakarta.persistence-api'
+    api 'jakarta.validation:jakarta.validation-api'
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'ch.qos.logback:logback-classic'
+}

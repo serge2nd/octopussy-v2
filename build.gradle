@@ -1,0 +1,36 @@
+import io.freefair.gradle.plugins.lombok.LombokPlugin
+import static java.lang.System.getProperty as sys
+apply from: 'ext.gradle'
+
+allprojects {
+    group 'ru.serge2nd'; version '0.5.0-SNAPSHOT'
+
+    tasks.withType(JavaCompile) { //noinspection GroovyAssignabilityCheck,GroovyAccessibility
+        options.release = 11
+        options.encoding = 'UTF-8'
+    }
+
+    plugins.withType(JavaPlugin).whenPluginAdded { project.with {
+        apply plugin: JavaLibraryPlugin
+        apply plugin: LombokPlugin
+
+        lombok {
+            version = lombok_.version
+            config = [
+                'lombok.NonNull.exceptionType': IllegalArgumentException.simpleName
+            ]
+        }
+
+        dependencies {
+            implementation platform(springBom), platform(springCloudBom)
+        }
+    }}
+
+    repositories {
+        mavenCentral()
+        maven {url 'https://serge2nd.jfrog.io/artifactory/maven'}
+        mavenLocal()
+    }
+}
+
+wrapper { gradleVersion = sys('gradle.version'); distributionType = 'ALL' }

@@ -1,0 +1,4 @@
+ext {
+    bunch_of_crafts = [version: '0.9.0']
+    lombok_         = [version: '1.18.18']
+}

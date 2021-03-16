@@ -1,0 +1,24 @@
+import static java.lang.System.getProperty as sys
+
+/*
+ * Build script classpath and variables assumed to be used by multiple projects.
+ */
+allprojects { buildscript {
+    // Spring BOM coordinates to ease dependency management
+    ext.spring_bom       = [group: 'org.springframework.boot', name: 'spring-boot-dependencies', version: sys('spring-bom.version')]
+    ext.spring_cloud_bom = [group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: sys('spring-cloud-bom.version')]
+    ext.springBom        = "${spring_bom.group}:${spring_bom.name}:${spring_bom.version}"
+    ext.springCloudBom   = "${spring_cloud_bom.group}:${spring_cloud_bom.name}:${spring_cloud_bom.version}"
+
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        // To include Lombok properly
+        classpath "io.freefair.gradle:lombok-plugin:${sys('lombok-plugin.version')}"
+        // To import a BOM via the `mavenBom` configuration
+        classpath "io.spring.gradle:dependency-management-plugin:${sys('dependency-management-plugin.version')}"
+        // To build a fat JAR (with all dependencies)
+        classpath "com.github.jengelman.gradle.plugins:shadow:${sys('shadow-plugin.version')}"
+    }
+}}
